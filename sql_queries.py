@@ -10,14 +10,14 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 
 songplay_table_create = "CREATE TABLE IF NOT EXISTS songplays (" \
                         "songplay_id serial PRIMARY KEY, " \
-                        "timestamp int NOT NULL, " \
+                        "timestamp bigint NOT NULL, " \
                         "user_id int NULL, " \
-                        "level varchar(200) NOT NULL, " \
-                        "song_id varchar(200) NULL, " \
-                        "artist_id varchar(200) NULL, " \
+                        "level varchar(255) NOT NULL, " \
+                        "song_id varchar(255) NULL, " \
+                        "artist_id varchar(255) NULL, " \
                         "session_id int NOT NULL, " \
-                        "location varchar(200), " \
-                        "user_agent varchar(200));"
+                        "location varchar(255), " \
+                        "user_agent varchar(255));"
 
 user_table_create = "CREATE TABLE IF NOT EXISTS users (" \
                     "user_id varchar(255) PRIMARY KEY, " \
@@ -51,13 +51,15 @@ time_table_create = "CREATE TABLE IF NOT EXISTS time (" \
 # INSERT RECORDS
 
 songplay_table_insert = "INSERT INTO songplays (" \
-                        "timestamp, user_id, " \
-                        "level, song_id, " \
+                        "timestamp, " \
+                        "user_id, " \
+                        "level, " \
+                        "song_id, " \
                         "artist_id, " \
                         "session_id, " \
                         "location, " \
                         "user_agent) " \
-                        "VALUES(%s,%s,%s,%s,%s,%s,%s,%s);"
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
 
 user_table_insert = "INSERT INTO users (" \
                     "user_id, " \
@@ -65,7 +67,12 @@ user_table_insert = "INSERT INTO users (" \
                     "last_name, " \
                     "gender, " \
                     "level) " \
-                    "VALUES (%s, %s, %s, %s, %s);"
+                    "VALUES (%s, %s, %s, %s, %s) " \
+                    "ON CONFLICT(user_id) DO UPDATE " \
+                    "SET first_name = excluded.first_name, " \
+                    "last_name = excluded.last_name, " \
+                    "gender = excluded.gender, " \
+                    "level = excluded.level;"
 
 song_table_insert = "INSERT INTO songs (" \
                     "song_id, " \
@@ -73,7 +80,7 @@ song_table_insert = "INSERT INTO songs (" \
                     "artist_id, " \
                     "year, " \
                     "duration) " \
-                    "VALUES(%s, %s, %s, %s, %s);"
+                    "VALUES (%s, %s, %s, %s, %s);"
 
 artist_table_insert = "INSERT INTO artists (" \
                       "artist_id, " \
@@ -81,7 +88,7 @@ artist_table_insert = "INSERT INTO artists (" \
                       "location, " \
                       "latitude, " \
                       "longitude) " \
-                      "VALUES(%s, %s, %s, %s, %s);"
+                      "VALUES (%s, %s, %s, %s, %s);"
 
 time_table_insert = "INSERT INTO time (" \
                     "timestamp, " \
@@ -91,7 +98,7 @@ time_table_insert = "INSERT INTO time (" \
                     "month, " \
                     "year, " \
                     "weekday) " \
-                    "VALUES(%s, %s, %s, %s, %s, %s, %s);"
+                    "VALUES (%s, %s, %s, %s, %s, %s, %s);"
 
 # FIND SONGS
 

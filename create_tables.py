@@ -64,6 +64,7 @@ def main():
     create_tables(cur, conn)
 
     conn.close()
+    print('Finished')
 
 
 if __name__ == "__main__":
