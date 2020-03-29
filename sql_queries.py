@@ -83,17 +83,23 @@ artist_table_insert = "INSERT INTO artists (" \
                       "longitude) " \
                       "VALUES(%s, %s, %s, %s, %s);"
 
-time_table_insert = ("INSERT INTO time(timestamp, hour, day, week, month, year, weekday)
-VALUES(%s, %s, %s, %s, %s, %s, %s);
-""")
+time_table_insert = "INSERT INTO time (" \
+                    "timestamp, " \
+                    "hour, " \
+                    "day, " \
+                    "week, " \
+                    "month, " \
+                    "year, " \
+                    "weekday) " \
+                    "VALUES(%s, %s, %s, %s, %s, %s, %s);"
 
 # FIND SONGS
 
-song_select = ("""
-SELECT s.song_id, a.artist_id FROM songs AS s
-INNER JOIN artists AS a ON s.artist_id = a.artist_id
-WHERE s.title = %s AND a.name = %s AND s.duration = %s;
-""")
+song_select = "SELECT s.song_id, a.artist_id FROM songs " \
+              "AS s INNER JOIN artists AS a " \
+              "ON s.artist_id = a.artist_id " \
+              "WHERE s.title = %s AND " \
+              "a.name = %s AND s.duration = %s;"
 
 # QUERY LISTS
 
