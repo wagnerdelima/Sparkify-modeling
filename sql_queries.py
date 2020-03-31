@@ -11,8 +11,8 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 songplay_table_create = "CREATE TABLE IF NOT EXISTS songplays (" \
                         "songplay_id serial PRIMARY KEY, " \
                         "timestamp bigint NOT NULL, " \
-                        "user_id int NULL, " \
-                        "level varchar(255) NOT NULL, " \
+                        "user_id int NOT NULL, " \
+                        "level varchar(255) NULL, " \
                         "song_id varchar(255) NULL, " \
                         "artist_id varchar(255) NULL, " \
                         "session_id int NOT NULL, " \
@@ -28,7 +28,7 @@ user_table_create = "CREATE TABLE IF NOT EXISTS users (" \
 
 song_table_create = "CREATE TABLE IF NOT EXISTS songs (" \
                     "song_id varchar(255) PRIMARY KEY, " \
-                    "title varchar(255) NOT NULL, " \
+                    "title varchar(255), " \
                     "artist_id varchar(255) NOT NULL, " \
                     "year int NOT NULL, " \
                     "duration float NOT NULL);"
@@ -80,7 +80,8 @@ song_table_insert = "INSERT INTO songs (" \
                     "artist_id, " \
                     "year, " \
                     "duration) " \
-                    "VALUES (%s, %s, %s, %s, %s);"
+                    "VALUES (%s, %s, %s, %s, %s) " \
+                    "ON CONFLICT(song_id) DO NOTHING;"
 
 artist_table_insert = "INSERT INTO artists (" \
                       "artist_id, " \
